@@ -1,0 +1,14 @@
+touch temp.suite.output
+mkdir _Test
+cp $1/* _Test
+cp Calculon _Test
+cd _Test
+(2>&1 SafeRun -p50 -T100000 -t10000 ./Calculon $1.suite) >> ../temp.suite.output
+#SafeRun -p50 -T100000 -t10000 ./Calculon $1.suite
+#(SafeRun -p50 -T100000 -t10000 ./Calculon $1.suite |& tee temp.suite.output) |& tee temp.suite.output
+#(SafeRun -p50)
+#diff (2>&1 SafeRun -p50 -T100000 -t10000 ./Calculon $1.suite) $1.out
+cd ..
+rm -rf _Test
+diff temp.suite.output $1.out
+rm temp.suite.output
